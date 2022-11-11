@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<moduls>
+     <modul hores="96" permetDUAL="false">
+          <nom>Acces a Dades</nom>
+          <nota>8.45</nota>
+     </modul>
+     <modul hores="93" permetDUAL="true">
+          <nom>Programació de serveis i processos</nom>
+          <nota>9.0</nota>
+     </modul>
+     <modul hores="96" permetDUAL="false">
+          <nom> Desenvolupament d' interficies</nom>
+          <nota>8.0</nota>
+     </modul>
+     <modul hores="95" permetDUAL="false">
+          <nom>Programació multimedia i dispositius mobils</nom>
+          <nota>7.34</nota>
+     </modul>
+     <modul hores="55" permetDUAL="true">
+          <nom>Sistemes de gestio empresarial</nom>
+          <nota>8.2</nota>
+     </modul>
+     <modul hores="63" permetDUAL="true">
+          <nom>Formacio i orientacio laboral</nom>
+          <nota>7.4</nota>
+     </modul>
+</moduls>
