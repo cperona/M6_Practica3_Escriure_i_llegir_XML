@@ -1,5 +1,4 @@
-package monaco;
-
+/*
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +10,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.*;
 
 public class LectorDOMObjectes {
-	
+	private List<Employee> empleats = new ArrayList<Employee>();
+
 	public void llegeixEmpleats() throws IOException {
 		try (FileInputStream reader = new FileInputStream("C:/Users/tonla/empleats_XML.xml")) {
 			
@@ -53,3 +53,4 @@ public class LectorDOMObjectes {
 	}
 }
 
+*/
