@@ -23,7 +23,7 @@
                         <Nationality>German</Nationality>
                     </Driver>
                     <Constructor constructorId="ferrari" url="http://en.wikipedia.org/wiki/Scuderia_Ferrari">
-                        <Name>Ferrari</Name>
+                        https://github.com/cperona/M6_Practica3_Escriure_i_llegir_XML.git<Name>Ferrari</Name>
                         <Nationality>Italian</Nationality>
                     </Constructor>
                     <Grid>2</Grid>

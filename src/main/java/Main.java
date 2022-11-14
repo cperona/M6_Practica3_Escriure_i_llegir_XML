@@ -67,51 +67,14 @@ public class Main {
         for (int i1 = 0; i1 < monacoResultNodeList.getLength(); i1++){
             //Guardem <Result> a un Node, el convertim a Element i guardem l'atribut "position" a la variable finalPos
             Node resultNode = monacoResultNodeList.item(i1);
-            Element resultElement = (Element) resultNode;
-            String finalPos = resultElement.getAttribute("position");
-
-            //Guardem els textNodes de les etiquetes que son child directes de <Result>
-            String initialPos = getNodeValue("Grid", resultElement);
-            String completedLaps = getNodeValue("Laps", resultElement);
-            boolean finisher = (getNodeValue("Status", resultElement)).equals("Finished");
-            String timeMillis = getNodeValue("Time", resultElement);
-
-            //Accedim als nodes child de <Result>
-            NodeList resultChildsNodeList = resultNode.getChildNodes();
-
-            //Guardem el valor de l'atribut "rank" de l'etiqueta <FastestLap> a la variable "rankFastestLap
-            Node fastestLapNode = resultChildsNodeList.item(resultChildsNodeList.getLength()-1); //Última pos del NodeList
-            Element fastestLapElement = (Element) fastestLapNode;
-            String rankFastestLap = fastestLapElement.getAttribute("rank");
-
-            //Accedim a l'etiqueta <Driver>
-            Node driverNode = resultChildsNodeList.item(0);
-            Element driverElement = (Element) driverNode;
-            //Guardem el text de les etiquetes <GivenName>, <FamilyName>, <PermanentNumber> i <Nationality>
-            String name = getNodeValue("GivenName", driverElement);
-            String surname = getNodeValue("FamilyName", driverElement);
-            String number = getNodeValue("PermanentNumber", driverElement);
-            String nationality = getNodeValue("Nationality", driverElement);
-
-            //Accedim a l'etiqueta <Constructor>
-            Node constructorNode = resultChildsNodeList.item(1);
-            Element constructorElement = (Element) constructorNode;
-            //Guardem l'etiqueta <Name> a la variable constructor
-            String constructor = getNodeValue("Name", constructorElement);
-
-            //Imprimim tot per pantalla
-            System.out.println("finalPos = " + finalPos);
-            System.out.println("initialPos = " + initialPos);
-            System.out.println("completedLaps = " + completedLaps);
-            System.out.println("finisher = " + finisher);
-            System.out.println("timeMillis = " + timeMillis);
-            System.out.println("rankFastesLap = " + rankFastestLap);
-            System.out.println("name = " + name);
-            System.out.println("surname = " + surname);
-            System.out.println("number = " + number);
-            System.out.println("nationality = " + nationality);
-            System.out.println("constructor = " + constructor);
-            System.out.println();
+            //Filtrem que tots els nodes siguin ELEMENT_NODE perquè no doni error en el cast de Node a Element
+            if (resultNode.getNodeType() == Node.ELEMENT_NODE){
+                Element resultElement = (Element) resultNode;
+                //Guardem les dades a ResultadoCarrera
+                ResultadoCarrera resultadoCarrera = new ResultadoCarrera(resultElement);
+                //Mostrem el resultat per consola
+                System.out.println(resultadoCarrera.toString());
+            }
         }
     }
 

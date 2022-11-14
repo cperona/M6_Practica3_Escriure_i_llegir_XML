@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
 
@@ -29,19 +31,45 @@ import org.w3c.dom.Element;
     </FastestLap>
 </Result>
 */
-public class ResultadoCarrera_TO_DO {
+public class ResultadoCarrera {
     private Driver d;
     private String constructor;
     private int initialPos;
     private int finalPos;
     private long timeMillis;
     private int completedLaps;
-    private int rankFastesLap;
+    private int rankFastestLap;
     private boolean finisher;
     
-    public ResultadoCarrera_TO_DO(Element result){
-              
-        // TO-DO 
+    public ResultadoCarrera(Element resultElement){
+        this.finalPos = Integer.parseInt(resultElement.getAttribute("position"));
+
+        //Guardem els textNodes de les etiquetes que son child directes de <Result>
+        this.initialPos = Integer.parseInt(getNodeValue("Grid", resultElement));
+        this.completedLaps = Integer.parseInt(getNodeValue("Laps", resultElement));
+        this.finisher = (getNodeValue("Status", resultElement)).equals("Finished");
+        Element timeElement = (Element) resultElement.getElementsByTagName("Time").item(0);
+        if (finisher){
+            this.timeMillis = Long.parseLong(timeElement.getAttribute("millis"));
+        }
+
+        //Guardem el valor de l'atribut "rank" de l'etiqueta <FastestLap> a la variable "rankFastestLap
+        Element fastestLapElement = (Element) resultElement.getElementsByTagName("FastestLap").item(0);
+        this.rankFastestLap = Integer.parseInt(fastestLapElement.getAttribute("rank"));
+
+        //Accedim a l'etiqueta <Driver>
+        Element driverElement = (Element) resultElement.getElementsByTagName("Driver").item(0);
+        //Guardem el text de les etiquetes <GivenName>, <FamilyName>, <PermanentNumber> i <Nationality>
+        String name = getNodeValue("GivenName", driverElement);
+        String surname = getNodeValue("FamilyName", driverElement);
+        String number = getNodeValue("PermanentNumber", driverElement);
+        String nationality = getNodeValue("Nationality", driverElement);
+        d = new Driver(driverElement);
+
+        //Accedim a l'etiqueta <Constructor>
+        Element constructorElement = (Element) resultElement.getElementsByTagName("Constructor").item(0);
+        //Guardem l'etiqueta <Name> a la variable constructor
+        this.constructor = getNodeValue("Name", constructorElement);
     }
 
     @Override
@@ -54,7 +82,7 @@ public class ResultadoCarrera_TO_DO {
         else
             resul += " sin completar la carrera";
                 
-        resul+="\n\tSu clasificación en vuelta rápida personal=" + rankFastesLap ;
+        resul+="\n\tSu clasificación en vuelta rápida personal=" + rankFastestLap;
         return resul;
     }
     
@@ -65,6 +93,12 @@ public class ResultadoCarrera_TO_DO {
         long m = (seconds / 60) % 60;
         long h = (seconds / (60 * 60)) % 24;
         return String.format("%02d:%02d:%02d:%03d", h,m,s,mmm);
+    }
+
+    private static String getNodeValue(String etiqueta, Element element) {
+        NodeList nodeList = element.getElementsByTagName(etiqueta).item(0).getChildNodes();
+        Node node = nodeList.item(0);
+        return node.getNodeValue();
     }
 
     public Driver getD() {
@@ -91,8 +125,8 @@ public class ResultadoCarrera_TO_DO {
         return completedLaps;
     }
 
-    public int getRankFastesLap() {
-        return rankFastesLap;
+    public int getRankFastestLap() {
+        return rankFastestLap;
     }
 
     public boolean isFinisher() {
